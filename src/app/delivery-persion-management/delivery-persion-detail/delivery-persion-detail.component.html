@@ -1,0 +1,246 @@
+<main class="middle-content">
+    <i class="fas fa-long-arrow-alt-left fa-2x" style="float:right;cursor: pointer;color: #3366ff;margin-right: 15px;margin-top: 10px" title="Back" [routerLink]="['/admin/deliverPersionManagement']"></i>
+
+  <div class="page_title_block">
+    <h1 class="page_title" title="{{userDetail?.name}} Detail(s)">{{userDetail?.name}} Detail(s)</h1>
+  </div>
+  <div class="content-section">
+    <div class="outer-box">
+      <div class="custom_tabs common-tabs">
+        <div class="tab-content">
+          <div class="tab-pane active show" id="general_info">
+            <div class="order-view mt30 max-WT-700 mrgn-0-auto">
+              <div class="main-block-innner mb40 mt40">
+                <div class="add-store-block input-style">
+                  <div class="user-profile">
+                    <div class="image-box">
+                        <img src={{userDetail?.deliveryPProfilePic}} *ngIf="userDetail.deliveryPProfilePic!=''" class="img-circle" alt="User Image" height="50" width="50" style="border-radius:50%" class="profile-pic">
+                        <img src="http://www.hts.jo/hts/assets/images/avatars/avatar1_big@2x.png" class="img-circle" alt="User Image" height="50" width="50" style="border-radius:50%" *ngIf="userDetail?.deliveryPProfilePic==''" class="profile-pic">
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Name :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.name}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">User ID :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?._id}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Email :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.email}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Phone No :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.countryCode}}{{userDetail?.mobileNumber}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Gender :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.gender}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Date of birth :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.dob}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">About us :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.deliveryPAboutUs}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Vehicle Type :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.vehicleType}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Vehicle Number :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.vehicleNumber}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Insurance Number :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.insuranceNumber}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Bank account no. :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.bankAC}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Emergency Contact :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.deliveryPEmergencyContact}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Date of birth :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.dob}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Created Date :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.createdAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                      <label class="col-md-5">Updated Date :</label>
+                      <div class="col-md-7">
+                        <label>{{userDetail?.updatedAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                      </div>
+                    </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Total rating:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.totalRating}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Average rating:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.amount}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Last active time:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.lastSeen}}</label>
+                    </div>
+                  </div>
+
+                  <!-- <div class="form-group row align-items-baseline">
+                    <fusioncharts width="550" height="350" type="Column2D" dataFormat="json" [dataSource]="dataSource"
+                      (dataplotRollOver)="plotRollOver($event)">
+                    </fusioncharts>
+                  </div>
+                   -->
+                  <div class="add-store-block input-style">
+                    <div class="form-group row ">
+                      <label class="common-label mb20 col-lg-12">Documents(Click To Zoom Image) :</label>
+                      <div class="col-md-6  h_key">
+                          <div class="imgbox">
+                              <img id="myImg1" style="width: 130px; height: 140px;"
+                              src="{{userDetail?.deliverPId1}}" *ngIf="userDetail?.deliverPId1!==''"  (click)="viewImage(userDetail?.deliverPId1)">
+                              <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img id="myImg1" style="width: 130px; height: 140px;"*ngIf="userDetail?.deliverPId1==''">
+                          </div>
+                      </div>
+                      <br><br><br><br>
+                      <div class="col-md-5  h_key">
+                          <div class="imgbox">
+                              <img id="myImg1" style="width: 130px; height: 140px;"
+                              src="{{userDetail?.deliveryPId2}}" *ngIf="userDetail?.deliveryPId2!==''"  (click)="viewImage(userDetail?.deliveryPId2)">
+                              <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img id="myImg1" style="width: 130px; height: 140px;"*ngIf="userDetail?.deliveryPId2==''">
+                          </div>
+                      </div>
+                      <div class="col-md-6  h_key">
+                          <div class="imgbox">
+                              <img id="myImg1" style="width: 130px; height: 140px;"
+                              src="{{userDetail?.vehicleLicense}}" *ngIf="userDetail?.vehicleLicense!==''"  (click)="viewImage(userDetail?.vehicleLicense)">
+                              <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img id="myImg1" style="width: 130px; height: 140px;"*ngIf="userDetail?.vehicleLicense==''">
+                          </div>
+                      </div>
+                      <div class="col-md-5  h_key">
+                          <div class="imgbox">
+                              <img id="myImg1" style="width: 130px; height: 140px;"
+                              src="{{userDetail?.uploadedInsurance}}" *ngIf="userDetail?.uploadedInsurance!==''"  (click)="viewImage(userDetail?.uploadedInsurance)">
+                              <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img id="myImg1" style="width: 130px; height: 140px;"*ngIf="userDetail?.uploadedInsurance==''">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center mt-3">
+                    <button class="btn btn-primary  mt-2 mr-2"
+                      [routerLink]="['/admin/deliverPersionManagement']">BACK</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal fade global-modal reset-modal" id="edit_earning_modal">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password" [formGroup]="editEarningForm" #f="ngForm">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <h4 class="modal-title text-center">Edit Earning</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-labe">Total Earning Percentage</label>
+                    <input class="form-control" formControlName="totalEarning" autocomplete="false" type="text">
+                    <span class="text-danger"
+                      *ngIf="editEarningForm.get('totalEarning').hasError('required') && (editEarningForm.get('totalEarning').dirty || f.submitted)">Field
+                      is required.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="editEarning(editEarningForm.value)"
+                class="btn btn-gray btn-large radius0 btn-block">SUBMIT</button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                data-dismiss="modal">CANCEL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade global-modal reset-modal modalview" id="image1" style="top:65px;">
+  <button type="button" class="close" data-dismiss="modal">×</button>
+  <div class="modal-dialog " style="max-width:-webkit-fill-available;">
+    <div class="change_password">
+      <div class="text-center">
+        <img [src]="viewImageOnModal" *ngIf="viewImageOnModal" class="rounded" style="height:619px;width:900px">
+      </div>
+    </div>
+  </div>
+</div>

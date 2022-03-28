@@ -1,0 +1,121 @@
+<main class="middle-content">
+  <i class="fas fa-long-arrow-alt-left fa-2x"
+    style="float:right;cursor: pointer;color: #3366ff;margin-right: 15px;margin-top: 10px" title="Back"
+    (click)=backClicked()></i>
+  <div class="page_title_block">
+    <h1 class="page_title">{{userDetail?.name}} Details</h1>
+  </div>
+  <div class="content-section">
+    <div class="outer-box">
+      <div class="custom_tabs common-tabs">
+        <div class="tab-content">
+          <div class="tab-pane active show" id="general_info">
+            <div class="order-view mt30 max-WT-700 mrgn-0-auto">
+              <div class="main-block-innner mb40 mt40">
+                <div class="add-store-block input-style">
+                  <div class="user-profile">
+                    <div class="image-box">
+                      <img src={{userDetail?.image}}
+                        class="img-circle" alt="Profile Image" height="50" width="50" style="border-radius:50%"
+                        class="profile-pic">
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Name :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.name}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Email :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.email}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Phone No :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.countryCode}}{{userDetail?.mobileNumber}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Address :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.address}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Store Type :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.storeType}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Delivery Time :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.deliveryTime}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Minimum Value :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.minimumValue}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Opening Time :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.openingTime}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Closing Time :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.closingTime}}</label>
+                    </div>
+                  </div>
+
+                 
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Created Date :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.createdAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Updated Date :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.updatedAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Total rating:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.totalRating}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Average rating:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.avgRating}}</label>
+                    </div>
+                  </div>
+
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

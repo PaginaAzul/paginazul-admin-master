@@ -1,0 +1,178 @@
+
+<main class="middle-content">
+        <i class="fas fa-long-arrow-alt-left fa-2x" style="float:right;cursor: pointer;color: #3366ff;margin-right: 15px;margin-top: 10px" title="Back" [routerLink]="['/admin/postManagement']"></i>
+
+    <div class="page_title_block">
+        <h1 class="page_title">{{ item.userId?.name }}'s Order Detail(s)</h1>
+    </div>
+    <div class="content-section">
+        <div class="outer-box">
+            <div class="custom_tabs common-tabs">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="general_info">
+                        <div class="order-view mt30 max-WT-700 mrgn-0-auto">
+                            <div class="main-block-innner mb40 mt40">
+                                <div class="add-store-block input-style">
+                                    <div class="user-profile">
+                                        <div class="image-box">
+                                            <img src={{item.userId?.profilePic}} *ngIf="item.userId?.profilePic!=''" class="img-circle" alt="User Image" height="50" width="50" style="border-radius:50%" class="profile-pic">
+                                              <img src="http://www.hts.jo/hts/assets/images/avatars/avatar1_big@2x.png" class="img-circle" alt="User Image" height="50" width="50" style="border-radius:50%" *ngIf="item.userId?.profilePic==''" class="profile-pic">
+                                        </div>
+                                      </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Name :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item.userId?.name }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Mobile Number :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item.userId?.countryCode }}{{ item.userId?.mobileNumber }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Email :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item.userId?.email }}</label>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Order Number :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.orderNumber }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Order Number :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item.userId?.country }}</label>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Service Category : </label>
+                                        <div class="col-md-7">
+                                            <label>{{item?.selectCategoryName}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Service Sub-Category : </label>
+                                        <div class="col-md-7">
+                                            <label>{{item?.selectSubCategoryName}}</label>
+                                            <label *ngIf="item?.selectSubCategoryName==''">No sub-category found</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-baseline"  *ngIf="item?.pickupLocation && item?.dropOffLocation">
+                                        <label class="col-md-5">Pickup Location :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.pickupLocation }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline" *ngIf="item?.dropOffLocation">
+                                        <label class="col-md-5" >Dropoff Location :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.dropOffLocation }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline" *ngIf="item?.pickupLocation && !item?.dropOffLocation">
+                                        <label class="col-md-5" >Dropoff Location :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.pickupLocation }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Time :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.seletTime }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Order Details :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.orderDetails }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Status :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.status }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-baseline" *ngIf="item?.status=='Complete' && item?.minimumOffer">
+                                        <label class="col-md-5">Mininum Offer :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.minimumOffer }} SAR</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-baseline"  *ngIf="item?.status=='Complete' && item?.invoiceSubtoatl">
+                                        <label class="col-md-5">Invoice Subtotal :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.invoiceSubtoatl }} SAR</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline"  *ngIf="item?.status=='Complete' && item?.invoiceTax">
+                                        <label class="col-md-5">Tax :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.invoiceTax }} SAR</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline" *ngIf="item?.status=='Complete' && item?.invoiceTotal">
+                                        <label class="col-md-5">Invoice Total :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.invoiceTotal }} SAR</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Created Date :</label>
+                                        <div class="col-md-7">
+                                            <label>{{item?.createdAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Updated Date :</label>
+                                        <div class="col-md-7">
+                                            <label>{{item?.updatedAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <button class="btn btn-primary  mt-2 mr-2"
+                                            [routerLink]="['/admin/postManagement']">BACK</button>
+                                        <button class="btn btn-primary  mt-2 mr-2" (click)="createPdf()"  title="
+                                        After generate the pdf you can see or download pdf from order management section">Create
+                                            Pdf</button>
+                                        <!-- <a class="btn btn-primary  mt-2 mr-2" *ngIf="item?.orderPdf" target="blank"
+                                            href="http://18.217.0.63:3000/api/v1/admin/getReceipt/{{item?.orderPdf}}"
+                                            title="Download pdf" download><i class="fa fa-file-pdf"
+                                                style="color:white"></i>Download Pdf</a> -->
+
+                                                <a class="btn btn-primary  mt-2 mr-2" *ngIf="item?.invoiceImage && item.invoiceStatus=='true'" target="blank"
+                                                href={{item?.invoiceImage}}
+                                                title="Download pdf" download><i class="fa fa-image"
+                                                    style="color:white"></i>Download Invoice Image</a>
+
+                                                    <a class="btn btn-primary  mt-2 mr-2" *ngIf="item?.invoicePdf && item.invoiceStatus=='true'" target="blank"
+                                                    href={{item?.invoicePdf}}
+                                                    title="Download pdf" download><i class="fa fa-file-pdf"
+                                                        style="color:white"></i>Download Invoice Pdf</a>
+                                                       
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Table Responsive End -->
+    </div>
+</main>
+
+

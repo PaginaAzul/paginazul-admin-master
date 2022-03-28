@@ -1,0 +1,201 @@
+<main class="middle-content">
+  <i class="fas fa-long-arrow-alt-left fa-2x"
+    style="float:right;cursor: pointer;color: #3366ff;margin-right: 15px;margin-top: 10px" title="Back"
+    [routerLink]="['/admin/professionalworkerManagement']"></i>
+  <div class="page_title_block">
+    <h1 class="page_title">{{userDetail?.name}} Details</h1>
+  </div>
+  <div class="content-section">
+    <div class="outer-box">
+      <div class="custom_tabs common-tabs">
+        <div class="tab-content">
+          <div class="tab-pane active show" id="general_info">
+            <div class="order-view mt30 max-WT-700 mrgn-0-auto">
+              <div class="main-block-innner mb40 mt40">
+                <div class="add-store-block input-style">
+                  <div class="user-profile">
+                    <div class="image-box">
+                      <img src={{userDetail?.image}}
+                        class="img-circle" alt="Profile Image" height="50" width="50" style="border-radius:50%"
+                        class="profile-pic">
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Name :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.name}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Email :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.email}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Phone No :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.countryCode}}{{userDetail?.mobileNumber}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">App Language :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.appLanguage}}</label>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Vehicle Type :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.vehicleType}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Brand :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.brand}}</label>
+                    </div>
+                  </div>
+                  
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Online Status :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.onlineStatus}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Vehicle Number :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.vehicleNumber}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">License Number :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.licenseNumber}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Insurance Number :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.insuranceNumber}}</label>
+                    </div>
+                  </div>
+
+                 
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Created Date :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.createdAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Updated Date :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.updatedAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Total rating:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.totalRating}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Average rating:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.avgRating}}</label>
+                    </div>
+                  </div>
+
+                  <div class="add-store-block input-style">
+                    <div class="form-group row ">
+                      <label class="common-label mb20 col-lg-12">Documents(Click To Zoom Image) :</label>
+                      <div class="col-md-6  h_key">
+                        <div class="imgbox">
+                          <img id="myImg1" style="width: 130px; height: 140px;" src="{{userDetail?.licenseImage}}"
+                            *ngIf="userDetail?.licenseImage!==''" (click)="viewImage(userDetail?.licenseImage)">
+                          <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img
+                            id="myImg1" style="width: 130px; height: 140px;" *ngIf="userDetail?.licenseImage==''">
+                        </div>
+                      </div>
+                     
+                      <div class="col-md-5  h_key">
+                        <div class="imgbox">
+                          <img id="myImg1" style="width: 130px; height: 140px;" src="{{userDetail?.insuranceImage}}"
+                            *ngIf="userDetail?.insuranceImage!==''" (click)="viewImage(userDetail?.insuranceImage)">
+                          <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img
+                            id="myImg1" style="width: 130px; height: 140px;" *ngIf="userDetail?.insuranceImage==''">
+                        </div>
+                      </div>
+                     
+                      <div class="col-md-5  h_key">
+                        <div class="imgbox">
+                          <img id="myImg1" style="width: 130px; height: 140px;" src="{{vehicleImages[0]?.image}}"
+                            *ngIf="vehicleImages[0]?.image!==''" (click)="viewImage(vehicleImages[0]?.image)">
+                          <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img
+                            id="myImg1" style="width: 130px; height: 140px;" *ngIf="vehicleImages[0]?.image==''">
+                        </div>
+                      </div>
+                      <div class="col-md-5  h_key">
+                        <div class="imgbox">
+                          <img id="myImg1" style="width: 130px; height: 140px;" src="{{vehicleImages[1]?.image}}"
+                            *ngIf="vehicleImages[1]?.image!==''" (click)="viewImage(vehicleImages[1]?.image)">
+                          <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img
+                            id="myImg1" style="width: 130px; height: 140px;" *ngIf="vehicleImages[1]?.image==''">
+                        </div>
+                      </div>
+                      <div class="col-md-5  h_key">
+                        <div class="imgbox">
+                          <img id="myImg1" style="width: 130px; height: 140px;" src="{{vehicleImages[3]?.image}}"
+                            *ngIf="vehicleImages[3]?.image!==''" (click)="viewImage(vehicleImages[3]?.image)">
+                          <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img
+                            id="myImg1" style="width: 130px; height: 140px;" *ngIf="vehicleImages[3]?.image==''">
+                        </div>
+                      </div>
+                      <div class="col-md-5  h_key">
+                        <div class="imgbox">
+                          <img id="myImg1" style="width: 130px; height: 140px;" src="{{vehicleImages[3]?.image}}"
+                            *ngIf="vehicleImages[3]?.image!==''" (click)="viewImage(vehicleImages[3]?.image)">
+                          <img src="https://accommodation.tripura.gov.in/Images2/LodgeImage/NoImageAvailable.png" img
+                            id="myImg1" style="width: 130px; height: 140px;" *ngIf="vehicleImages[3]?.image==''">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center mt-3">
+                    <button class="btn btn-primary  mt-2 mr-2"
+                      [routerLink]="['/admin/driver']">BACK</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal fade global-modal reset-modal modalview" id="image1" style="top:65px;">
+  <button type="button" class="close" data-dismiss="modal">×</button>
+  <div class="modal-dialog " style="max-width:-webkit-fill-available;">
+    <div class="change_password">
+      <div class="text-center">
+        <img [src]="viewImageOnModal" *ngIf="viewImageOnModal" class="rounded" style="height:619px;width:900px">
+      </div>
+    </div>
+  </div>
+</div>
+

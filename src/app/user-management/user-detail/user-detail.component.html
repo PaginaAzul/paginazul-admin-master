@@ -1,0 +1,129 @@
+
+<main class="middle-content">
+    <i class="fas fa-long-arrow-alt-left fa-2x" style="float:right;cursor: pointer;color: #3366ff;margin-right: 15px;margin-top: 10px" title="Back" [routerLink]="['/admin/userManagement']"></i>
+  <div class="page_title_block">
+    <h1 class="page_title" title="{{userDetail?.name}} Detail(s)">{{userDetail?.name}} Detail(s)</h1>
+   
+  </div>
+  <div class="content-section">
+    <div class="outer-box">
+      <div class="custom_tabs common-tabs">
+        <div class="tab-content">
+          <div class="tab-pane active show" id="general_info">
+            <div class="order-view mt30 max-WT-700 mrgn-0-auto">
+              <div class="main-block-innner mb40 mt40">
+                <div class="add-store-block input-style">
+                  <div class="user-profile">
+                    <div class="image-box">
+                        <img src={{userDetail?.profilePic}} *ngIf="userDetail?.profilePic!=''" class="img-circle" alt="Image" height="50" width="50" style="border-radius:50%" class="profile-pic">
+                          <img src="https://www.pngitem.com/pimgs/m/287-2876223_no-profile-picture-available-hd-png-download.png" class="img-circle" alt="Image" height="50" width="50" style="border-radius:50%" *ngIf="userDetail?.profilePic==''" class="profile-pic">
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Name :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.name}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Email :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.email}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Phone No :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.countryCode}}{{userDetail?.mobileNumber}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Gender :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.gender}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Date of birth :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.dob}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Created Date :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.createdAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                      <label class="col-md-5">Updated Date :</label>
+                      <div class="col-md-7">
+                        <label>{{userDetail?.updatedAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                      </div>
+                    </div>
+
+                  <!-- <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Total wallet amount :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.amount}}</label>
+                    </div>
+                  </div> -->
+
+                  <!-- <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Total paid amount :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.amount}}</label>
+                    </div>
+                  </div>
+                   -->
+                  <!-- <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Remain amount :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.amount}}</label>
+                    </div>
+                  </div> -->
+
+                  <!-- <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Total report:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.amount}}</label>
+                    </div>
+                  </div> -->
+                  
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Total order:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.amount}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Total Rating:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.totalRating}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Average rating:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.avgRating}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Last active time:</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.lastSeen}}</label>
+                    </div>
+                  </div>
+                  <div class="text-center mt-3">
+                    <button class="btn btn-primary  mt-2 mr-2" [routerLink]="['/admin/userManagement']">BACK</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

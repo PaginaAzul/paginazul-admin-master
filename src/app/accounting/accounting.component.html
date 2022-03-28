@@ -1,0 +1,192 @@
+<main class="middle-content">
+
+    <div class="page_title_block">
+      <h1 class="page_title" title="Accounting(s) Management">Accounting(s) Management</h1>
+  
+    </div>
+
+    <div class="content-section">
+      <div class="outer-box">
+
+        <div class="global-table no-radius p0">
+          <div class="tab-content1">
+            <div class="tab-pane1">
+              <div class="sec_head_new">
+                  <!doctype html>
+                  <html>
+                  <head>
+                  <title>Site Maintenance</title>
+                  <meta charset="utf-8"/>
+                  <meta name="robots" content="noindex"/>
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                 
+                  <style>
+                    body { text-align: center; }
+                    
+                    /* h1 { font-size: 50px; } */
+                    body { font: 20px Helvetica, sans-serif; color: #333; }
+                    article { display: block; text-align: left; width: 650px; margin: 0 auto;margin-top: 10px }
+                    a { color: #dc8100; text-decoration: none; }
+                    a:hover { color: #333; text-decoration: none; }
+                  </style>
+                  </head>
+                  
+                  <body>
+                   
+                  <article>
+                     
+                      <img src="http://www.sclance.com/backgrounds/coming-soon-transparent-background/coming-soon-transparent-background_613739.png">
+                      <div>
+                          <p>Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment!</p>
+                          <p>&mdash; Team Jokar</p>
+                      </div>
+                  </article>
+                  </body>
+                  </html>
+                <!-- <form [formGroup]="searchForm" (ngSubmit)="searchFilter(searchForm.value)" >
+                  <div class="row justify-content-between">
+                    <div class=" col-md-3 ">
+                        <div class="filter_search mb20 width100">
+                        <div class="input-group filter_search_group">
+                            <input type="text" formControlName="search" class="form-control" placeholder="Search by currency/tax/region" ngbTooltip="Search by currency/tax/region">
+                            <div class="input-group-append">
+                            <button class="btn btn_search_group" type="button"><img src="assets/img/icon-search.png" alt="Search"></button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-8 ">
+                        <div class="text-left">
+                            <button type="submit" class="btn  btn-theme form-group mr-3" style="min-width:0px !important">Search</button>
+                            <button type="reset" (click)="getList()" class="btn  btn-theme form-group">Reset</button>
+                        </div>
+                    </div>
+                  </div>
+                </form> -->
+              </div>
+              <!-- <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr class="no_wrap_th">
+                      <th>ID</th>
+                      <th>Currency</th>
+                      <th>Tax In %</th>
+                      <th>Region</th>
+                      <th>Status</th>
+                      <th>Created Date</th>
+                      <th>Updated Date</th>
+                      <th class="action_td_btn3">Action</th>
+                    </tr>
+                  </thead>
+                  <ng-container *ngIf="items.length > 0; else elseTemplate">
+                    <tbody>
+                      <tr *ngFor='let x of items | paginate: { itemsPerPage: limit, currentPage: pageNumber , totalItems: pageData?.total };let i=index'>
+                        <td>{{ (i+1) + srNo }}</td>
+                        <td>{{ x?.currency }}</td>
+                        <td>{{ x?.taxInPercentage }} %</td>
+                        <td>{{ x?.region }}</td>
+                        <td *ngIf="x?.status=='Active'" style="color:green">Active</td>
+                        <td *ngIf="x?.status=='Inactive'" style="color:red">Inactive</td>
+                        <td *ngIf="x?.status!='Active' && x?.status!='Inactive'"></td>
+                        <td>{{x?.createdAt | date:'dd/MM/yyyy h:mm a' }}</td>
+                        <td>{{x?.updatedAt | date:'dd/MM/yyyy h:mm a' }}</td>
+                        <td class="action_td_btn3">
+                          <a class="btn btn-primary mr-2" (click)="edit_account_modal(x)" data-toggle="modal"
+                          data-target="#edit_account_modal"><i class="fa fa-edit" style="color:white"> Update</i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <tbody>
+                      <tr *ngIf="items == ''">
+                      <td colspan="9" vertical-align="middle">
+                        <div class="no-record">
+                          <div class="no-recordin">
+                            <H5 style="margin-left: 44%;">No record found</H5>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </ng-template>
+                </table>
+              </div>
+              <div class="custom-pagination mt20 text-right">
+                  <pagination-controls (pageChange)="pagination($event)"></pagination-controls>
+                </div> -->
+            </div>
+  
+          </div>
+        </div>
+  
+      </div>
+    </div>
+    <!-- Table Responsive End -->
+  </main>
+  
+  <div class="modal fade global-modal reset-modal" id="edit_account_modal">
+    <div class="modal-dialog max-WT-500">
+      <form class="change_password" [formGroup]="editAccountForm" #f="ngForm">
+        <div class="modal-content">
+          <div class="modal-header ">
+            <h4 class="modal-title text-center">Edit Currency & Tax Details</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row align-items-center modal_flax_height">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="control-labe">Currency</label>
+                      <select class="form-control" style="min-width: 160px;" formControlName="currency">
+                          <option style="display:none">Select currency</option>
+                          <option *ngFor="let y of dropDownData">
+                            {{y}}
+                          </option>
+                        </select>
+                      <div class="text-danger"
+                        *ngIf="editAccountForm.get('currency').hasError('required') && (editAccountForm.get('currency').dirty || f.submitted)">
+                        Currency is required.
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-labe">Tax In %</label>
+                      <input class="form-control" formControlName="taxInPercentage" autocomplete="false" type="text">
+                      <div class="text-danger"
+                        *ngIf="editAccountForm.get('taxInPercentage').hasError('required') && (editAccountForm.get('taxInPercentage').dirty || f.submitted)">
+                        Tax is required.
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-labe">Region</label>
+                      <select class="form-control" style="min-width: 160px;" formControlName="region">
+                          <option style="display:none">Select region</option>
+                          <option *ngFor="let y of dropDownData1">
+                            {{y}}
+                          </option>
+                        </select>
+                        <div class="text-danger"
+                        *ngIf="editAccountForm.get('region').hasError('required') && (editAccountForm.get('region').dirty || f.submitted)">
+                        Region is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <button type="submit" (click)="editAccount(editAccountForm.value)"
+                  class="btn btn-gray btn-large radius0 btn-block">Update</button>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                  data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,104 @@
+<main class="middle-content">
+  <div class="page_title_block">
+    <h1 class="page_title" title="Payment Management">Payment Management</h1>
+
+  </div>
+  <div class="content-section">
+    <div class="outer-box">
+      <div class="global-table no-radius p0">
+        <div class="tab-content1">
+          <div class="tab-pane1">
+            <div class="sec_head_new">
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="no_wrap_th">
+                    <th>ID</th>
+                    <th>Order Number</th>
+                    <th>Ordered By</th>
+                    <th>Seller Name</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                  </tr>
+                </thead>
+                <ng-container *ngIf="items.length > 0; else elseTemplate">
+                  <tbody
+                    *ngFor="let item of items | paginate: {itemsPerPage:limit, currentPage:pageNumber, totalItems: pageData?.total } ; let i=index ">
+                    <tr>
+                      <td>{{ (i+1) + srNo }}</td>
+                      <td title="Click to see {{ item.orderId?.orderNumber }} detail"><a [routerLink]="['/admin/orderProductDetail/'+item.orderId?._id]"><u
+                            style="color:#660033;cursor: pointer;">{{ item.orderId?.orderNumber }}</u></a></td>
+                      <td title="Click to see {{item.userId?.name}} detail"><a
+                          [routerLink]="['/admin/userManagement']"><u
+                            style="color:green">{{ item.userId?.name }}</u></a></td>
+                      <td title="{{ item.resAndStoreId?.name }}"><b>
+                          {{ item.resAndStoreId?.name }}</b><a
+                          [routerLink]="['/admin/resStoreDetail/item.resAndStoreId?._id']"></a></td>
+                      <td>{{item?.adminAmount}} Kz</td>
+                      <td>{{item?.status}}</td>
+                      <td title="{{ item?.createdAt | date:'dd/MM/yyyy h:mm a' }}">
+                        {{ item?.createdAt | date:'dd/MM/yyyy h:mm a' }}</td>
+                      <td title="{{ item?.updatedAt | date:'dd/MM/yyyy h:mm a' }}">
+                        {{ item?.updatedAt | date:'dd/MM/yyyy h:mm a' }}</td>
+                      
+                    </tr>
+                  </tbody>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <tbody>
+                    <tr *ngIf="items == ''">
+                      <td colspan="15" vertical-align="middle">
+                        <div class="no-record">
+                          <div class="no-recordin">
+                            <H5 style="margin-left: 43%;">No record found</H5>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </ng-template>
+              </table>
+            </div>
+            <div class="custom-pagination mt20 text-right">
+              <pagination-controls (pageChange)="pagination($event)"></pagination-controls>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+
+
+
+<div class="modal fade global-modal reset-modal" id="delete">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-trash fa-3x" style="color:#FA7C7C" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to delete this record?</p>
+                <div>
+                  <button type="submit" class="btn btn-success1 mr-3" data-dismiss="modal"
+                    (click)="deleteApi()">Yes</button>
+                  <button type="button" class="btn btn-danger1" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

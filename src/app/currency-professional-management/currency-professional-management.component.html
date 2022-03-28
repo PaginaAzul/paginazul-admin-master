@@ -1,0 +1,498 @@
+<main class="middle-content">
+  <div class="page_title_block">
+    <h1 class="page_title">Professional Account(s) Management</h1>
+
+  </div>
+  <div class="content-section">
+    <div class="outer-box">
+      <div class="global-table no-radius p0">
+        <div class="tab-content1">
+          <div class="tab-pane1">
+            <div class="sec_head_new">
+              <form [formGroup]="searchForm" (ngSubmit)="searchFilter(searchForm.value)">
+                <div class="row justify-content-between">
+                  <div class=" col-md-3 ">
+                    <div class="filter_search mb20 width100">
+                      <div class="input-group filter_search_group">
+                        <input type="text" formControlName="search" class="form-control" placeholder="Search by name"
+                          ngbTooltip="Search by name">
+                        <div class="input-group-append">
+                          <button class="btn btn_search_group" type="button"><img src="assets/img/icon-search.png"
+                              alt="Search"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class=" col-md-8 ">
+                    <div class="text-left">
+                      <button type="submit" class="btn  btn-theme form-group mr-3"
+                        style="min-width:0px !important">Search</button>
+                      <button type="reset" (click)="getList()" class="btn  btn-theme form-group">Reset</button>
+                    </div>
+                  </div>
+                  <div class=" col-md-12 ">
+                    <div class="text-right">
+                      <button class="btn  btn-theme form-group mr-3" data-target="#updateMeasurementLimitAll"
+                        data-toggle="modal" style="color:white"> <i class="fa fa-edit"></i> Update Measurement
+                        Limit</button>
+                      <button class="btn  btn-theme form-group mr-3" data-target="#updateOfferLimitAll"
+                        data-toggle="modal" style="color:white"> <i class="fa fa-edit"></i> Update Offer Limit</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="no_wrap_th">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile Number</th>
+                    <th>Country</th>
+                    <th>Account Balance</th>
+                    <th>Total Revenue</th>
+                    <th>Due Amount</th>
+                    <th>Measurement Limit</th>
+                    <th>Minimum Offer Amount</th>
+                    <th>Minimum Offer Account Status</th>
+                    <th>Account Measurement Status</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th class="action_td_btn3">Action</th>
+                  </tr>
+                </thead>
+                <ng-container *ngIf="items.length > 0; else elseTemplate">
+                  <tbody>
+                    <tr
+                      *ngFor='let x of items | paginate: { itemsPerPage: limit, currentPage: pageNumber , totalItems: pageData?.total };let i=index'>
+                      <td>{{ (i+1) + srNo }}</td>
+                      <td><a [routerLink]="['/admin/deliverPersionManagement']"><u
+                            style="color:green">{{ x?.name }}</u></a></td>
+                      <td title="Click to send mail {{x?.email}}" (click)="mail(x?._id)" data-toggle="modal"
+                        data-target="#mail"><u style="color:#FF0000;cursor:pointer">{{x?.email}}</u></td>
+                      <td>{{ x?.countryCode }}{{ x?.mobileNumber }}</td>
+                      <td>{{ x?.country }}</td>
+                      <td>{{ x?.professionalAccountBalance }} SAR</td>
+                      <td>{{ x?.totalProfessionalRevenue }} SAR</td>
+                      <td>{{ x?.totalDueToPayProfessional }} SAR</td>
+                      <td>{{ x?.measurementLimitProfessional }} SAR</td>
+                      <td>{{ x?.minimumOfferLimitProfessional }} SAR</td>
+                      <td *ngIf="x?.minimumOfferStatusDelivery=='true'" style="color:green">Active</td>
+                      <td *ngIf="x?.minimumOfferStatusDelivery=='false'" style="color:red">Inactive</td>
+                      <td *ngIf="x?.minimumOfferStatusDelivery!='true' && x?.minimumOfferStatusDelivery!='false'"></td>
+                      <td *ngIf="x?.measurementStatusDelivery=='true'" style="color:green">Active</td>
+                      <td *ngIf="x?.measurementStatusDelivery=='false'" style="color:red">Inactive</td>
+                      <td *ngIf="x?.measurementStatusDelivery!='true' && x?.measurementStatusDelivery!='false'"></td>
+                      <td>{{x?.createdAt | date:'dd/MM/yyyy h:mm a' }}</td>
+                      <td>{{x?.updatedAt | date:'dd/MM/yyyy h:mm a' }}</td>
+                      <td class="action_td_btn3">
+                        <a class="btn btn-primary mr-2" (click)="updateMeasurementLimit(x)" data-toggle="modal"
+                          data-target="#updateMeasurementLimit"><i class="fa fa-edit" style="color:white"> Update
+                            Measurement Limit</i></a>
+
+                        <a class="btn btn-primary mr-2" (click)="updateOfferLimit(x)" data-toggle="modal"
+                          data-target="#updateOfferLimit"><i class="fa fa-edit" style="color:white"> Update Offer
+                            Limit</i></a>
+                        <a class="btn btn-warning mr-2" style="color:white" (click)="openModal('block',x?._id)"
+                          *ngIf="x?.minimumOfferStatusDelivery=='true'" data-target="modal"><i class="fa fa-ban"
+                            style="color:white">
+                            Inactive Offer Account</i></a>
+                        <a class="btn btn-warning mr-2"
+                          style="color:white;background: green;min-width: 77px;border-color:green"
+                          (click)="openModal('unblock',x?._id)" *ngIf="x?.minimumOfferStatusDelivery=='false'"
+                          data-target="modal"><i class="fa fa-check" style="color:white"> Active Offer Account</i></a>
+
+                        <a class="btn btn-warning mr-2" style="color:white" (click)="openModal('block1',x?._id)"
+                          *ngIf="x?.measurementStatusDelivery=='true'" data-target="modal"><i class="fa fa-ban"
+                            style="color:white">
+                            Inactive Measurement Account</i></a>
+                        <a class="btn btn-warning mr-2"
+                          style="color:white;background: green;min-width: 77px;border-color:green"
+                          (click)="openModal('unblock1',x?._id)" *ngIf="x?.measurementStatusDelivery=='false'"
+                          data-target="modal"><i class="fa fa-check" style="color:white"> Active Measurement
+                            Account</i></a>
+
+
+                      </td>
+                    </tr>
+                  </tbody>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <tbody>
+                    <tr *ngIf="items == ''">
+                      <td colspan="9" vertical-align="middle">
+                        <div class="no-record">
+                          <div class="no-recordin">
+                            <H5 style="margin-left: 44%;">No record found</H5>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </ng-template>
+              </table>
+            </div>
+            <div class="custom-pagination mt20 text-right">
+              <pagination-controls (pageChange)="pagination($event)"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<div class="modal fade global-modal reset-modal" id="block">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-ban fa-3x" style="color:red" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to inactive this account?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" (click)="blockApi('false','block')">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="modal fade global-modal reset-modal" id="unblock">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-check fa-3x" style="color:green" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to active this account?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" (click)="blockApi('true','unblock')">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal global-modal reset-modal" id="updateMeasurementLimit">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="updateMeasurementLimitForm" #g="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Update Measurement Limit</h5>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Amount</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="number" class="form-control" formControlName="measurementLimitProfessional"
+                    placeholder="Enter Amount" min="0">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" (click)="updateMeasurementLimit1(updateMeasurementLimitForm.value)"
+                    class="btn btn-gray btn-large radius0 btn-block">Update</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal global-modal reset-modal" id="updateOfferLimit">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="updateOfferLimitForm" #g="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Update Offer Limit</h5>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Amount</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="number" class="form-control" formControlName="minimumOfferLimitProfessional"
+                    placeholder="Enter Amount" min="0">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" (click)="updateOfferLimit1(updateOfferLimitForm.value)"
+                    class="btn btn-gray btn-large radius0 btn-block">Update</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="modal global-modal reset-modal" id="updateMeasurementLimitAll">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="updateMeasurementLimitAllForm" #g="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Update Measurement Limit</h5>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Amount</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="number" class="form-control" formControlName="measurementLimitProfessional"
+                    placeholder="Enter Amount" min="0">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" (click)="updateMeasurementLimitAll1(updateMeasurementLimitAllForm.value)"
+                    class="btn btn-gray btn-large radius0 btn-block">Update</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal global-modal reset-modal" id="updateOfferLimitAll">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="updateOfferLimitAllForm" #g="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Update Offer Limit</h5>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Amount</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="number" class="form-control" formControlName="minimumOfferLimitProfessional"
+                    placeholder="Enter Amount" min="0">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Country: </h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <select class="form-control" style="min-width: 160px;" formControlName="country">
+                    <option style="display:none">Select country</option>
+                    <option *ngFor="let y of dropDownData1">
+                      {{y}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" (click)="updateOfferLimitAll1(updateOfferLimitAllForm.value)"
+                    class="btn btn-gray btn-large radius0 btn-block">Update</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="modal fade global-modal reset-modal" id="block1">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-ban fa-3x" style="color:red" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to inactive this account?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" (click)="blockApi1('false','block1')">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="modal fade global-modal reset-modal" id="unblock1">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-check fa-3x" style="color:green" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to active this account?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" (click)="blockApi1('true','unblock1')">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal global-modal reset-modal" id="mail">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="mailForm" #g="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Send Mail</h5>
+          <i class="fa fa-envelope fa-3x" style="color:green" aria-hidden="true"></i>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Message</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <textarea type="text" class="form-control" formControlName="message" rows="5"
+                    placeholder="Enter message"></textarea>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" (click)="sendMail(mailForm.value)"
+                    class="btn btn-gray btn-large radius0 btn-block">Send</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

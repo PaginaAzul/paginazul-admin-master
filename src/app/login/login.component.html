@@ -1,0 +1,80 @@
+<main class="app-content patient-section"
+  style="background-image:url('https://cpec-centre.pk/wp-content/uploads/2017/04/blue-background-17-Copy.jpg'); height: 100vh;">
+  <div class="login-wrapper">
+    <div class="container-common">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="login-box max-WT-520">
+            <div class="login-right-block">
+               
+              <form class="login-form" [formGroup]="LoginForm" #f="ngForm">
+                <div class="user-profile">
+                  <div class="image-box">
+                    <img src="https://res.cloudinary.com/a2karya80559188/image/upload/v1623234096/Logotipo_Paginazul_Vertical_xvkhtx.png" title="Logo" style="width: 208%;
+                    height: 103%;
+                    margin-left: -46px;
+                    border-radius: 6%"  class="profile-pic" title="Paginazul">
+                  </div>
+                </div>
+                <div class="login-heading">
+                  <h4 title="PAGINAZUL LOGIN">LOGIN</h4>
+                </div>
+                <div class="login-box-body">
+                  <div class="form-group">
+                    <input type="email" title="Email" class="form-control" formControlName="email" placeholder="Email" />
+                    <div class="text-danger"
+                      *ngIf="LoginForm.get('email').hasError('required') && (LoginForm.get('email').dirty || f.submitted)">
+                      Email is required.
+                    </div>
+                    <div class="text-danger"
+                      *ngIf="LoginForm.get('email').hasError('pattern') && (LoginForm.get('email').dirty || f.submitted)">
+                      Invalid email id.
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <input [type]="show ? 'text' : 'password'" class="form-control " title="Password" formControlName="password" placeholder="Password" >
+                      <span toggle="#password-field"  *ngIf="show!==true" title="View" class="fa fa-eye field-icon fa-2x toggle-password"  (click)="password()" style="cursor:pointer;font-size: 24px;
+                      margin-right: 10px;"></span>
+                      <span toggle="#password-field"  *ngIf="show==true"  title="Hide" class="fa fa-eye-slash fa-2x field-icon toggle-password"  (click)="password()" style="cursor:pointer;font-size: 24px;
+                      margin-right: 10px;"></span>
+                    <div class="text-danger"
+                      *ngIf="LoginForm.get('password').hasError('required') && (LoginForm.get('password').dirty || f.submitted)">
+                      Password is required.
+                    </div>
+                    <div class="text-danger"
+                      *ngIf="LoginForm.get('password').hasError('minlength') && (LoginForm.get('password').dirty || f.submitted)">
+                      Minimum length must be 8.
+                    </div>
+                    <div class="text-danger"
+                      *ngIf="LoginForm.get('password').hasError('maxlength') && (LoginForm.get('password').dirty || f.submitted)">
+                      Maximum length should be less than 17.
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-lg-6">
+                      <div class="checkbox">
+                          <label title="Remember me"><input type="checkbox"  formControlName="remberMe" > Remember me</label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="forgot-links">
+                        <a [routerLink]="['/forgotPassword']" title="Forgot Password?"><u>Forgot Password?</u></a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="text-center mt40">
+                    <button type="submit" (click)="loginFunction(LoginForm.value)"
+                      class="btn btn-login btn-large  width100 font-100" title="LOGIN">LOGIN</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

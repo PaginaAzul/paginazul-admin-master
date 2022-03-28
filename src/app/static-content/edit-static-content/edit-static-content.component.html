@@ -1,0 +1,54 @@
+<main class="middle-content">
+
+  <div class="page_title_block">
+    <h1 class="page_title">{{pageName}}</h1>
+
+  </div>
+
+  <div class="content-section">
+    <div class="main-block-innner mb40 mt40">
+      <div class="row ">
+            <div class="col-md-12">
+        <form [formGroup]="staticContentForm" #f="ngForm">
+          <div class="form-group row ">
+            <label class="col-md-2">Type :</label>
+            <div class="col-md-8">
+              <input type="text" formControlName="type" placeholder="type" class="form-control" disabled>
+              <div *ngIf="staticContentForm.get('type').hasError('required') && (staticContentForm.get('type').dirty || f.submitted)"
+                style="color:red">
+                *Please enter type
+              </div>
+            </div>
+          </div>
+          <div class="form-group row ">
+            <label class="col-md-2">Description(English):</label>
+            <div class="col-md-8">
+              <ckeditor class="form-control" formControlName="description" #myckeditor  debounce="500">
+              </ckeditor>
+              <div *ngIf="staticContentForm.get('description').hasError('required') && (staticContentForm.get('description').dirty || f.submitted)"
+                style="color:red">
+                *Please enter description
+              </div>
+            </div>
+          </div>
+          <div class="form-group row ">
+            <label class="col-md-2">Description(Portuguese):</label>
+            <div class="col-md-8">
+              <ckeditor class="form-control" formControlName="portDescription" #myckeditor  debounce="500">
+              </ckeditor>
+              <div *ngIf="staticContentForm.get('portDescription').hasError('required') && (staticContentForm.get('portDescription').dirty || f.submitted)"
+                style="color:red">
+                *Please enter description
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt40">
+            <button (click)="Update(staticContentForm.value)" class="btn btn-large   max-WT-200 font-100 btn-green">Update</button>
+            <a [routerLink]="['/admin/staticContent']" class="btn btn-large  max-WT-200 font-100 btn-grey ml5">Cancel</a>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

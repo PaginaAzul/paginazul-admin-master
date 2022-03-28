@@ -1,0 +1,339 @@
+<main class="middle-content">
+  <i class="fas fa-long-arrow-alt-left fa-2x"
+    style="float:right;cursor: pointer;color:#1C2B42;margin-right: 15px;margin-top: 10px" title="Back"
+    (click)=backClicked()></i>
+
+  <div class="page_title_block">
+    <h1 class="page_title" title="Store Management">Store Management</h1>
+  </div>
+  <div class="content-section">
+    <div class="outer-box">
+      <div class="global-table no-radius p0">
+        <div class="tab-content1">
+          <div class="tab-pane1">
+            <div class="sec_head_new">
+              <form [formGroup]="searchForm" #f="ngForm">
+                <div class="row justify-content-between">
+                  <div class=" col-md-3 ">
+                    <div class="filter_search mb20 width100">
+                      <div class="input-group filter_search_group">
+                        <input type="text" formControlName="search" class="form-control" placeholder="Search"
+                          ngbTooltip="Search">
+                        <div class="input-group-append">
+                          <button class="btn btn_search_group" type="button"><img src="assets/img/icon-search.png"
+                              alt="Search"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 ">
+                    <div class="head_flt_select input-label">
+                      <strong><span class="d-flex align-items-center">From</span></strong>
+                      <input type="date" class="form-control" placeholder="From date" formControlName="startDate"
+                        max="{{todayDate | date:'yyyy-MM-dd'}}" (ngModelChange)="Changed($event)">
+                    </div>
+                  </div>
+
+                  <div class=" col-md-3 ">
+                    <div class="head_flt_select input-label">
+                      <b><span class="d-flex align-items-center">To</span></b>
+                      <input type="date" class="form-control" placeholder="To date" formControlName="endDate"
+                        min="{{nowDate2 | date:'yyyy-MM-dd'}}" max="{{todayToDate | date:'yyyy-MM-dd'}}"
+                        (ngModelChange)="fromMaxDate($event)">
+                    </div>
+                  </div>
+
+                  <div class=" col-md-3 ">
+                    <div class="text-left">
+                      <button type="submit" (click)="search(searchForm.value)" class="btn btn-theme form-group mr-3"
+                        style="min-width:0px !important" title="Search">Search</button>
+                      <button type="reset" (click)="getViewData()" class="btn  btn-theme form-group"
+                        title="Reset">Reset</button>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="no_wrap_th">
+                    <th>ID</th>
+                    <th>Profile</th>
+                    <th>Name</th>
+                    <th>email</th>
+                    <th>Mobile Number</th>
+                    <th>Address</th>
+                    <th>Document</th>
+                    <th>Account Verification</th>
+                    <th>Status</th>
+                    <th>Offer Status</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th class="action_td_btn3">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor='let x of userArr | paginate: { itemsPerPage: limit, currentPage: pageNumber , totalItems: total };let i=index'>
+                    <td>{{(i+1) + srNumber }}</td>
+                    <td><img class="img-circle" alt="Image" *ngIf="x?.image!=''" height="50" width="50"
+                      style="border-radius:50%" src="{{x?.image}}">
+                    <td>{{ x?.name }}</td>
+                    <td>{{ x?.email }}</td>
+                    <td>{{ x?.countryCode }}{{ x?.mobileNumber }}</td>
+                    <td>{{ x?.address }}</td>
+                    <td>
+                      <a class="btn btn-primary1 mr-2" (click)="openNewTab(x?.document)" title="Click"><i class="fa fa-check"
+                          style="color:white"> Click to View</i></a>
+                    </td>
+                    <td>{{ x?.adminVerifyStatus }}</td>
+                    <td *ngIf="x?.status=='Active'" style="color:green" title="Active">Active</td>
+                    <td *ngIf="x?.status=='Inactive'" style="color:red" title="Inactive">Inactive</td>
+                    <td *ngIf="x?.status!='Active' && x?.status!='Inactive'"></td>
+                    <td *ngIf="x?.offerStatus=='Active'" style="color:green" title="Active">Active</td>
+                    <td *ngIf="x?.offerStatus=='Inactive'" style="color:red" title="Inactive">Inactive</td>
+                    <td *ngIf="x?.offerStatus!='Active' && x?.offerStatus!='Inactive'"></td>
+                    <td title="{{x?.createdAt | date:'dd/MM/yyyy h:mm a'}}">{{x?.createdAt | date:'dd/MM/yyyy h:mm a'}}
+                    </td>
+                    <td title="{{x?.updatedAt | date:'dd/MM/yyyy h:mm a'}}">{{x?.updatedAt | date:'dd/MM/yyyy h:mm a'}}
+                    </td>
+                    <td class="action_td_btn3">
+                      <a class="btn btn-danger mr-2" (click)="delete(x)" data-toggle="modal" data-target="#delete"
+                        title="Delete"><i class="fa fa-trash" style="color:white"> Delete</i></a>
+                      <a class="btn btn-theme mr-2" [routerLink]="['/admin/resStoreDetail/'+x?._id]" title="View"><i
+                          class="fa fa-eye" style="color:white"> View</i></a>
+                      <a class="btn btn-warning mr-2" style="color:white" (click)="openModal('block',x?._id)"
+                        *ngIf="x?.status=='Active'" data-target="modal" title="Inactive"><i class="fa fa-ban"
+                          style="color:white">
+                          Inactive</i></a>
+                      <a class="btn btn-warning mr-2"
+                        style="color:white;background: green;min-width: 77px;border-color:green"
+                        (click)="openModal('unblock',x?._id)" *ngIf="x?.status=='Inactive'" data-target="modal"
+                        title="Active"><i class="fa fa-check" style="color:white"> Active</i></a>
+
+                      <a class="btn btn-warning mr-2" style="color:white" (click)="openModal('block1',x?._id)"
+                        *ngIf="x?.offerStatus=='Active'" data-target="modal" title="Inactive"><i class="fa fa-ban"
+                          style="color:white">
+                          Offer Inactive</i></a>
+                      <a class="btn btn-warning mr-2"
+                        style="color:white;background: green;min-width: 77px;border-color:green"
+                        (click)="openModal('unblock1',x?._id)" *ngIf="x?.offerStatus=='Inactive'" data-target="modal"
+                        title="Active"><i class="fa fa-check" style="color:white"> Offer Active</i></a>
+                        <a class="btn btn-warning1 mr-2"
+                        style="color:white;background: green;min-width: 77px;border-color:green"
+                        (click)="openModal('approve',x?._id)" *ngIf="x?.adminVerifyStatus=='Pending'"
+                        data-target="modal" title="Approve"><i class="fa fa-check" style="color:white"> Approve</i></a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="userArr == ''">
+                    <td colspan="12" vertical-align="middle">
+                      <div class="no-record">
+                        <div class="no-recordin">
+                          <H5 style="margin-left: 44%;">No record found</H5>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+            <div *ngIf="userArr != ''" class="pull-right mt-4">
+              <pagination-controls (pageChange)="pagination($event)"></pagination-controls>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<div class="modal fade global-modal reset-modal" id="reject">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-times fa-3x" style="color:#FA7C7C" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to reject this request?</p>
+                <div>
+                  <button type="submit" class="btn btn-success1 mr-3"
+                    (click)="rejectApi('Not-Verified','reject')">Yes</button>
+                  <button type="button" class="btn btn-danger1" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="modal fade global-modal reset-modal" id="approve">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-check fa-3x" style="color:#74c365" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to approve this request?</p>
+                <div>
+                  <button type="submit" class="btn btn-success1 mr-3"
+                    (click)="rejectApi('Verified','approve')">Yes</button>
+                  <button type="button" class="btn btn-danger1" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="modal fade global-modal reset-modal" id="delete">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-trash fa-3x" style="color:red" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to delete this record?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" data-dismiss="modal"
+                    (click)="deleteApi()">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade global-modal reset-modal" id="block">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-ban fa-3x" style="color:red" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to inactive this user?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" (click)="blockApi('Inactive','block')">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade global-modal reset-modal" id="block1">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-ban fa-3x" style="color:red" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to inactive this user offer status?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" (click)="blockApi1('Inactive','block1')">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="modal fade global-modal reset-modal" id="unblock">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-check fa-3x" style="color:green" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to active this user?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" (click)="blockApi('Active','unblock')">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade global-modal reset-modal" id="unblock1">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-check fa-3x" style="color:green" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to active this user offer status?</p>
+                <div>
+                  <button type="submit" class="btn btn-success mr-3" (click)="blockApi1('Active','unblock1')">Yes</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

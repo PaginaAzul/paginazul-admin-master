@@ -1,0 +1,58 @@
+<main class="middle-content">
+    <div class="page_title_block">
+        <h1 class="page_title">Report Detail</h1>
+    </div>
+    <div class="content-section">
+        <div class="outer-box">
+            <div class="custom_tabs common-tabs">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="general_info">
+                        <div class="order-view mt30 max-WT-700 mrgn-0-auto">
+                            <div class="main-block-innner mb40 mt40">
+                                <div class="add-store-block input-style">
+                                    <div class="user-profile">
+                                    </div>
+
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Username :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.name }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">User Type :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.userType }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Email :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.email }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Description :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.text }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row align-items-baseline">
+                                        <label class="col-md-5">Created Date :</label>
+                                        <div class="col-md-7">
+                                            <label>{{ item?.createdAt | date:'dd/MM/yyyy h:mm a' }}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mt-3">
+                                        <button class="btn btn-primary  mt-2 mr-2" [routerLink]="['/admin/reportManagement']">BACK</button>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

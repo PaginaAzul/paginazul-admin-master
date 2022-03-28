@@ -1,0 +1,209 @@
+<main class="middle-content">
+    <div class="page_title_block">
+      <h1 class="page_title" title="Rating(s) Management">Rating(s) Management</h1>
+    </div>
+    <div class="content-section">
+      <div class="outer-box">
+        <div class="global-table no-radius p0">
+          <div class="tab-content1">
+            <div class="tab-pane1">
+              <div class="sec_head_new">
+                <form [formGroup]="searchForm" (ngSubmit)="searchFilter(searchForm.value)" >
+                  <div class="row justify-content-between">
+                    <div class=" col-md-3 ">
+                        <div class="filter_search mb20 width100">
+                        <div class="input-group filter_search_group">
+                            <input type="text" formControlName="search" class="form-control" placeholder="Search" ngbTooltip="Search">
+                            <div class="input-group-append">
+                            <button class="btn btn_search_group" type="button"><img src="assets/img/icon-search.png" alt="Search"></button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-8 ">
+                        <div class="text-left">
+                            <button type="submit" class="btn  btn-theme form-group mr-3" style="min-width:0px !important" title="Search">Search</button>
+                            <button type="reset" (click)="getList()" class="btn  btn-theme form-group" title="Reset">Reset</button>
+                        </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr class="no_wrap_th">
+                      <th>ID</th>
+                      <th>Rating By</th>
+                      <th>Rating To</th>
+                      <th style="width:130px">Rating</th>
+                      <th>Rating Message</th>
+                      <th>Comment</th>
+                      <th>Created Date</th>
+                      <th>Updated Date</th>
+                      <th class="action_td_btn3">Action</th>
+                    </tr>
+                  </thead>
+                  <ng-container *ngIf="items.length > 0; else elseTemplate">
+                    <tbody>
+                      <tr *ngFor='let x of items | paginate: {itemsPerPage:limit, currentPage:pageNumber, totalItems: pageData?.total } ;let i=index'>
+                        <td>{{ (i+1) + srNo }}</td>
+                        <td title="Click to see {{x?.ratingByName }} detail"><a [routerLink]="['/admin/userManagement']"><u style="color:green">{{ x?.ratingByName }}</u></a></td>
+                        <td title="Click to see {{x?.ratingToName }} detail"><a [routerLink]="['/admin/userManagement']"><u style="color:green">{{ x?.ratingToName }}</u></a></td>
+                        <td *ngIf="x?.rate=='1'"><a class="fa fa-star" style="color:darkorange" title="1"></a></td>
+                        <td *ngIf="x?.rate=='2'"><a class="fa fa-star" style="color:darkorange" title="2"></a><a class="fa fa-star" style="color:darkorange"></a></td>
+                        <td *ngIf="x?.rate=='3'"><a class="fa fa-star" style="color:darkorange" title="3"></a><a class="fa fa-star" style="color:darkorange"></a><a class="fa fa-star" style="color:darkorange"></a></td>
+                        <td *ngIf="x?.rate=='4'"><a class="fa fa-star" style="color:darkorange" title="4"></a><a class="fa fa-star" style="color:darkorange"></a><a class="fa fa-star" style="color:darkorange"></a><a class="fa fa-star" style="color:darkorange"></a></td>
+                        <td *ngIf="x?.rate=='5'"><a class="fa fa-star" style="color:darkorange" title="5"></a><a class="fa fa-star" style="color:darkorange"></a><a class="fa fa-star" style="color:darkorange"></a><a class="fa fa-star" style="color:darkorange"></a><a class="fa fa-star" style="color:darkorange"></a></td>
+                        <td title="{{ x?.ratingMessage}}"><b>{{ x?.ratingMessage}}</b></td>
+                        <td title="{{x?.comments}}" *ngIf="x?.comments" (click)="openModal(x?.comments)" style="color:brown;cursor:pointer">{{x?.comments
+                          | slice:0:15}}{{
+                            x?.comments.length > 15 ?'...' : ''}}</td>
+                        <td *ngIf="!x?.comments"></td>
+                        <td title="{{x?.createdAt | date:'dd/MM/yyyy h:mm a' }}">{{x?.createdAt | date:'dd/MM/yyyy h:mm a' }}</td>
+                        <td title="{{x?.updatedAt | date:'dd/MM/yyyy h:mm a' }}">{{x?.updatedAt | date:'dd/MM/yyyy h:mm a' }}</td>
+                        <td class="action_td_btn3">
+                          <a class="btn btn-primary1 mr-2" (click)="edit_rating_modal(x)" data-toggle="modal"
+                          data-target="#edit_rating_modal" title="Update"><i class="fa fa-edit" style="color:white"> Update</i></a>
+                          <a class="btn btn-danger1 mr-2" (click)="delete(x?._id)" data-toggle="modal" data-target="#delete" title="Delete"><i class="fa fa-trash" style="color:white"> Delete</i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <tbody>
+                      <tr *ngIf="items == ''">
+                      <td colspan="9" vertical-align="middle">
+                        <div class="no-record">
+                          <div class="no-recordin">
+                            <H5 style="margin-left: 44%;">No record found</H5>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </ng-template>
+                </table>
+              </div>
+              <div class="custom-pagination mt20 text-right">
+                  <pagination-controls (pageChange)="pagination($event)"></pagination-controls>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <div class="modal fade global-modal reset-modal" id="delete">
+    <div class="modal-dialog max-WT-500">
+      <form class="change_password">
+        <div class="modal-content">
+          <div>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <div class="modal-body">
+              <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+                <div class="w-100">
+                    <i class="fa fa-trash fa-3x" style="color:red" aria-hidden="true"></i>
+                                        <br><br>
+                  <p>Are you sure want to delete this record?</p>
+                  <div>
+                    <button type="submit"  class="btn btn-success mr-3" data-dismiss="modal" (click)="deleteApi()">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal fade global-modal reset-modal" id="edit_rating_modal">
+    <div class="modal-dialog max-WT-500">
+      <form class="change_password" [formGroup]="editRatingForm" #f="ngForm">
+        <div class="modal-content">
+          <div class="modal-header ">
+            <h4 class="modal-title text-center">Edit Rating Details</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row align-items-center modal_flax_height">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="control-labe">Rating</label>
+                      <input class="form-control" formControlName="rate" autocomplete="false" type="text">
+                      <div class="text-danger"
+                        *ngIf="editRatingForm.get('rate').hasError('required') && (editRatingForm.get('rate').dirty || f.submitted)">
+                        Rate is required.
+                      </div>
+                      <div class="text-danger"
+                      *ngIf="editRatingForm.get('rate').hasError('pattern') && (editRatingForm.get('rate').dirty)">
+                      Please enter only number.
+                    </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-labe">Rating message</label>
+                      <input class="form-control" formControlName="ratingMessage" autocomplete="false" type="text">
+                      <div class="text-danger"
+                        *ngIf="editRatingForm.get('ratingMessage').hasError('required') && (editRatingForm.get('ratingMessage').dirty || f.submitted)">
+                        Rating message is required.
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-labe">Comment</label>
+                      <textarea type="password" class="form-control" formControlName="comments" rows="5"
+                        placeholder="Description" maxlength="256"></textarea>
+                        <div class="text-danger"
+                        *ngIf="editRatingForm.get('comments').hasError('required') && (editRatingForm.get('comments').dirty || f.submitted)">
+                        Comment is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <button type="submit" (click)="editRating(editRatingForm.value)"
+                  class="btn btn-gray btn-large radius0 btn-block">Update</button>
+              </div>
+              <div class="col-6">
+                <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                  data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+<div class="modal global-modal reset-modal" id="commentModal">
+  <div class="modal-dialog max-WT-700">
+    <form class="change_password">
+      <div class="modal-content">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Comment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mt-2">
+          <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+            <div class="w-100">
+              <p style="word-break:break-all">{{commentData}}</p>
+              <div>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

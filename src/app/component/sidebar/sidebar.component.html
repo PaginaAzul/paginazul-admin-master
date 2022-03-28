@@ -1,0 +1,382 @@
+<header class="header">
+    <nav class="navbar clearfix">
+        
+        <div class="logo-box">
+
+            <a class="navbar-brand logo" [routerLink]="['../admin/dashboard']">
+                <label class="lg-logo" style="color: white;" title="Paginazul Admin Panel"><b>Paginazul Admin
+                        Panel</b></label>
+                <label class="sm-logo" style="color: white;" title="PAP"><b>PAP</b></label>
+            </a>
+
+        </div>
+        <div class="header-right-part">
+            <button class="btn btn-toggle" type="button">
+                <i class="fas fa-bars" style="color:whitesmoke "></i>
+
+            </button>
+        </div>
+
+
+        <ul class=" mr-4 pull-right">
+            
+            <li class="nav-item dropdown">
+
+                <a class="nav-link" href="javascript:void(0);" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <img src={{profilePic}} height="50" width="50" style="border-radius:50%" class="img-circle" alt=""
+                        title="My Profile">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="javascript:void(0);" [routerLink]="['/admin/myProfile']">My
+                        Profile</a>
+                    <a class="dropdown-item" href="javascript:void(0);" data-target="#signout_modal"
+                        data-toggle="modal">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<aside class="sidebar">
+    <div class="sidebar-scroller">
+        <div id="accordion" class="sidebar-menu">
+            <div class="user-panel clearfix">
+                <div class="pull-left image">
+                    <img src={{profilePic}} style="border-radius:50%" class="img-circle" alt="User Image">
+
+                </div>
+                <div class="pull-left info mt10">
+                    <a [routerLink]="['../admin/myProfile']" title="Click to see {{name}} detail">
+                        <p>Welcome</p>
+                        <h4><i class="fa fa-circle" style="color:green"></i> {{name}}</h4>
+                    </a>
+                </div>
+            </div>
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'dashboard'}">
+                <div class="card-header clearfix" id="headingOne">
+                    <a class="side_menu" [routerLink]="['../admin/dashboard']">
+                        <span class="side_menu_icon">
+                            <img src="assets/img/dashboard-icon.png" alt="icon" />
+                        </span>
+                        <span class="side_page_name">Dashboard</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-box" *ngIf="permissionData?.subAdminManagement"
+                [ngClass]="{'active': sidemenu == 'subAdmin'}">
+                <div class="card-header clearfix" id="headingOne">
+                    <a class="side_menu" [routerLink]="['../admin/subAdminManagement']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-user-astronaut faa-pulse animated fa-2x"></i>
+
+
+                        </span>
+                        <span class="side_page_name">Sub-Admin Management</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-box" *ngIf="permissionData?.userManagement"
+                [ngClass]="{'active': sidemenu == 'userManagement'}">
+                <div class="card-header clearfix" id="headingTwo">
+                    <a class="side_menu" [routerLink]="['../admin/userTypeManagement']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-users faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">User Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'categoryManagement'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/categoryManagement']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-handshake faa-pulse animated" style="font-size:20px"></i>
+                        </span>
+                        <span class="side_page_name"> Service Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" *ngIf="permissionData?.orderManagement"
+                [ngClass]="{'active': sidemenu == 'postManagement'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/postManagement/all']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-box faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Order Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'reportManagement'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/reportManagement']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-comments faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Get In Touch Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" *ngIf="permissionData?.ratingManagement"
+                [ngClass]="{'active': sidemenu == 'ratingManagement'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/ratingManagement']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-star faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Rating Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'driver'}">
+                <div class="card-header clearfix" id="headingTwo">
+                    <a class="side_menu" [routerLink]="['../admin/driver/all']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-car faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Driver Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'store'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/store/all']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-store faa-pulse animated" style="font-size:20px"></i>
+
+                        </span>
+                        <span class="side_page_name"> Store Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'restaurant'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/restaurant/all']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-handshake faa-pulse animated" style="font-size:20px"></i>
+
+                        </span>
+                        <span class="side_page_name"> Restaurant Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'mainService'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/mainService']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-handshake faa-pulse animated" style="font-size:20px"></i>
+                        </span>
+                        <span class="side_page_name"> Home Service Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'storeType'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/storeType']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-store faa-pulse animated" style="font-size:20px"></i>
+
+                        </span>
+                        <span class="side_page_name"> Offer Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'banner'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/banner']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-flag faa-pulse animated" style="font-size:20px"></i>
+                        </span>
+                        <span class="side_page_name"> Banner Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'bannerOffer'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/bannerOffer']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-gift faa-pulse animated" style="font-size:20px"></i>
+                        </span>
+                        <span class="side_page_name"> Exclusive Offer Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'commission'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/commission']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-percent faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Commission Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'orderProduct'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/orderProduct']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-box faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Product Order Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'story'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/story']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-info faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Story Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'addReportReasonManagement'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/addReportReasonManagement']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-bug faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Report Reason Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'postUserTypeManagement'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/postUserTypeManagement']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-bell faa-ring animated fa-4x" style="font-size:30px"></i>
+
+                        </span>
+                        <span class="side_page_name"> Notification Management</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'payment'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/payment']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-money faa-pulse animated" style="font-size:20px"></i>
+
+                        </span>
+                        <span class="side_page_name"> Payment Management</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-box" *ngIf="permissionData?.staticManagement"
+                [ngClass]="{'active': sidemenu == 'staticContent'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/staticContent']">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-file faa-pulse animated fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Static Content Management</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" [ngClass]="{'active': sidemenu == 'myProfile'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/myProfile']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-user-tie fa-2x faa-pulse animated"></i>
+                        </span>
+                        <span class="side_page_name">My Profile</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box" *ngIf="permissionData?.settingManagement"
+                [ngClass]="{'active': sidemenu == 'settingManagement'}">
+                <div class="card-header clearfix" id="headingThree">
+                    <a class="side_menu" [routerLink]="['../admin/settingManagement']">
+                        <span class="side_menu_icon">
+                            <i class="fa fa-cog fa-spin fa-2x"></i>
+                        </span>
+                        <span class="side_page_name">Settings</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="menu-box">
+                <div class="card-header clearfix">
+                    <a class="side_menu" data-target="#signout_modal" data-toggle="modal">
+                        <span class="side_menu_icon">
+                            <i class="fas fa-sign-out-alt fa-2x faa-pulse animated"></i>
+
+                        </span>
+                        <span style="color:whitesmoke" class="side_page_name">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+<router-outlet></router-outlet>
+
+
+
+
+<div class="modal fade global-modal reset-modal" id="signout_modal">
+    <div class="modal-dialog max-WT-500">
+        <div class="modal-content">
+            <div class="modal-body  text-center">
+                <div class="row align-items-center modal_flax_height">
+                    <div class="col">
+                        <div class="box-title mb40 d-inline-block">
+                            <i class="fas fa-power-off off-icon"></i>
+                            <p class="mt40">Are you sure you want to logout?</p>
+                        </div>
+                        <div class="text-center">
+                            <a (click)="logout()" data-dismiss="modal" class="btn btn-blue1 btn-noYes">YES</a>
+                            <button type="button" class="btn btn-red btn-noYes ml-2" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,251 @@
+<main class="middle-content">
+  <div class="page_title_block">
+    <h1 class="page_title" title="{{userDetail?.name}} Detail(s)">{{userDetail?.name}} Detail(s)</h1>
+  </div>
+  <div class="content-section" style="max-width: 395pxs">
+    <div class="outer-box">
+      <div class="custom_tabs common-tabs">
+        <div class="tab-content">
+          <div class="tab-pane active show" id="general_info">
+            <div class="order-view mt30 max-WT-700 mrgn-0-auto">
+              <div class="main-block-innner mb40 mt40">
+                <div class="add-store-block input-style">
+                  <div class="user-profile">
+                    <div class="image-box">
+                      <img src="{{image}}" *ngIf="image" style="width: 86%;
+                      height: 88%;
+                      border-radius: 6%;">
+                      <img src="assets/img/profile-img.jpg" *ngIf="image==undefined" class="file">
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Name :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.name}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Email :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.email}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Username :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.username}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Permissions : </label>
+                  </div>
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">User Management : </label>
+                    <div class="col-md-7">
+                      <label *ngIf="permission[0]?.userManagement==true" style="color:green"><i
+                          class="fa fa-check" style="font-size:25px"></i></label>
+                      <label *ngIf="permission[0]?.userManagement==false" style="color:red"><i
+                          class="fa fa-times" style="font-size:25px"></i></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Order Management : </label>
+                    <div class="col-md-7">
+                      <label *ngIf="permission[0]?.orderManagement==true" style="color:green"><i
+                          class="fa fa-check" style="font-size:25px"></i></label>
+                      <label *ngIf="permission[0]?.orderManagement==false" style="color:red"><i
+                          class="fa fa-times" style="font-size:25px"></i></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Rating Management : </label>
+                    <div class="col-md-7">
+                      <label *ngIf="permission[0]?.ratingManagement==true" style="color:green"><i
+                          class="fa fa-check" style="font-size:25px"></i></label>
+                      <label *ngIf="permission[0]?.ratingManagement==false" style="color:red"><i
+                          class="fa fa-times" style="font-size:25px"></i></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Static Content Management : </label>
+                    <div class="col-md-7">
+                      <label *ngIf="permission[0]?.staticManagement==true" style="color:green"><i
+                          class="fa fa-check" style="font-size:25px"></i></label>
+                      <label *ngIf="permission[0]?.staticManagement==false" style="color:red"><i
+                          class="fa fa-times" style="font-size:25px"></i></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Setting Management : </label>
+                    <div class="col-md-7">
+                      <label *ngIf="permission[0]?.settingManagement==true" style="color:green"><i
+                          class="fa fa-check" style="font-size:25px"></i></label>
+                      <label *ngIf="permission[0]?.settingManagement==false" style="color:red"><i
+                          class="fa fa-times" style="font-size:25px"></i></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Created Date :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.createdAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row align-items-baseline">
+                    <label class="col-md-5">Updated Date :</label>
+                    <div class="col-md-7">
+                      <label>{{userDetail?.updatedAt | date:'dd/MM/yyyy h:mm a'}}</label>
+                    </div>
+                  </div>
+
+
+                  <div class="text-center mt-3">
+                    <button type="submit" data-target="#edit_profile_modal" data-toggle="modal"
+                      class="btn btn-primary1  mt-2 mr-2">CHANGE PASSWORD</button>
+
+                  </div>
+                  <div class="text-center mt-3">
+                    <button type="submit" data-target="#edit_currency" data-toggle="modal"
+                      class="btn btn-primary1  mt-2 mr-2">UPDATE CURRENCY</button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+
+
+<div class="modal fade global-modal reset-modal" id="edit_profile_modal">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password" [formGroup]="changePasswordForm" #f="ngForm">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <h4 class="modal-title text-center">Change Password</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-labe">Old Password</label>
+                    <input class="form-control" formControlName="oldPassword" title="Old Password" autocomplete="false"
+                      type="password" placeholder="Enter current password">
+                    <span class="text-danger"
+                      *ngIf="changePasswordForm.get('oldPassword').hasError('required') && (changePasswordForm.get('oldPassword').dirty || f.submitted)">Old
+                      Password is required.</span>
+                    <span class="text-danger"
+                      *ngIf="changePasswordForm.get('oldPassword').hasError('minlength') && (changePasswordForm.get('oldPassword').dirty || f.submitted)">
+                      Old password is too short.</span>
+                    <span class="text-danger"
+                      *ngIf="changePasswordForm.get('oldPassword').hasError('maxlength') && (changePasswordForm.get('oldPassword').dirty || f.submitted)">Length
+                      exceeded.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-labe">New Password</label>
+                    <input class="form-control" formControlName="newPassword" title="New Password" autocomplete="false"
+                      type="password" placeholder="Enter new password">
+                    <span class="text-danger"
+                      *ngIf="changePasswordForm.get('newPassword').hasError('required') && (changePasswordForm.get('newPassword').dirty || f.submitted)">
+                      New password is required.</span>
+                    <span class="text-danger"
+                      *ngIf="changePasswordForm.get('newPassword').hasError('minlength') && (changePasswordForm.get('newPassword').dirty || f.submitted)">New
+                      Password is too short.</span>
+                    <span class="text-danger"
+                      *ngIf="changePasswordForm.get('newPassword').hasError('maxlength') && (changePasswordForm.get('newPassword').dirty || f.submitted)">Length
+                      exceeded.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-labe">Confirm Password</label>
+                    <input class="form-control" formControlName="confirmPassword" title="Confirm Password"
+                      autocomplete="false" type="password" placeholder="Enter confirm password">
+                    <span class="text-danger"
+                      *ngIf="changePasswordForm.get('confirmPassword').hasError('required') && !(changePasswordForm.value.newPassword != changePasswordForm.value.confirmPassword) && (changePasswordForm.get('confirmPassword').dirty || f.submitted)">Confirm
+                      password is required.</span>
+                    <span class="text-danger"
+                      *ngIf="(changePasswordForm.value.newPassword != changePasswordForm.value.confirmPassword) && (changePasswordForm.get('confirmPassword').dirty || f.submitted)">Must
+                      match with new Password.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="editProfile(changePasswordForm.value)"
+                class="btn btn-gray btn-large radius0 btn-block">SUBMIT</button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                data-dismiss="modal">CANCEL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade global-modal reset-modal" id="edit_currency">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password" [formGroup]="editCurrencyForm" #f="ngForm">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <h4 class="modal-title text-center">Edit Currency</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-labe">Currency</label>
+                    <input class="form-control" formControlName="currency" autocomplete="false" type="text">
+                    <span class="text-danger"
+                      *ngIf="editCurrencyForm.get('currency').hasError('required') && (editCurrencyForm.get('currency').dirty || f.submitted)">Field
+                      is required.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="editCurrency(editCurrencyForm.value)"
+                class="btn btn-gray btn-large radius0 btn-block">SUBMIT</button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                data-dismiss="modal">CANCEL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

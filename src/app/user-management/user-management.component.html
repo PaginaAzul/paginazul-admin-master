@@ -1,0 +1,666 @@
+<main class="middle-content">
+  <i class="fas fa-long-arrow-alt-left fa-2x"
+    style="float:right;cursor: pointer;color: #3366ff;margin-right: 15px;margin-top: 10px" title="Back"
+    [routerLink]="['/admin/userTypeManagement']"></i>
+
+  <div class="page_title_block">
+    <h1 class="page_title" title="Normal User(s) Management">Normal User(s) Management</h1>
+  </div>
+
+
+  <div class="content-section">
+    <div class="outer-box">
+      <div class="global-table no-radius p0">
+        <div class="tab-content1">
+          <div class="tab-pane1">
+            <div class="sec_head_new">
+              <form [formGroup]="searchForm" #f="ngForm">
+                <div class="row justify-content-between">
+                  <div class=" col-md-3 ">
+                    <div class="filter_search mb20 width100">
+                      <div class="input-group filter_search_group">
+                        <input type="text" formControlName="search" class="form-control" placeholder="Search"
+                          ngbTooltip="Search">
+                        <div class="input-group-append">
+                          <button class="btn btn_search_group" type="button"><img src="assets/img/icon-search.png"
+                              alt="Search"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 ">
+                    <div class="head_flt_select input-label">
+                      <strong><span class="d-flex align-items-center">From</span></strong>
+                      <input type="date" class="form-control" placeholder="From date" formControlName="startDate"
+                        max="{{todayDate | date:'yyyy-MM-dd'}}" (ngModelChange)="Changed($event)">
+
+                    </div>
+                  </div>
+                  <div class=" col-md-3 ">
+                    <div class="head_flt_select input-label">
+                      <b><span class="d-flex align-items-center">To</span></b>
+                      <input type="date" class="form-control" placeholder="To date" formControlName="endDate"
+                        min="{{nowDate2 | date:'yyyy-MM-dd'}}" max="{{todayDate | date:'yyyy-MM-dd'}}"
+                        (ngModelChange)="fromMaxDate($event)">
+                    </div>
+                  </div>
+                  <div class=" col-md-3 ">
+                    <div class="text-left">
+                      <button type="submit" (click)="searchApi(searchForm.value)" class="btn btn-theme form-group mr-3"
+                        style="min-width:0px !important" title="Search">Search</button>
+                      <button type="reset" (click)="getViewData()" class="btn  btn-theme form-group"
+                        title="Reset">Reset</button>
+                    </div>
+                  </div>
+                  <div class=" col-md-12 ">
+                    <div class="text-right">
+                      <button class="btn  btn-theme form-group mr-3" data-target="#addUser" type="button"
+                        data-toggle="modal" style="color:white" title="Add New User"> <i class="fa fa-plus"></i> Add New
+                        User</button>
+                      <button class="btn  btn-theme form-group mr-3" data-target="#sendNotificationToAll" type="button"
+                        data-toggle="modal" style="color:white" title="Send Notification" type="button"> <i
+                          class="fa fa-bell"></i> Send Notification to All</button>
+                      <button class="btn  btn-theme form-group mr-3" (click)="createExcel()" style="color:white"
+                        title="Generate Excel" type="button"> <i class="fa fa-file-excel"></i> Generate Excel</button>
+                      <!-- <a class="btn  btn-theme form-group mr-3" *ngIf="userArr1?.userExcel" target="blank"
+                        href="http://18.189.223.53:3000/api/v1/admin/getExcel/{{userArr1?.userExcel}}"
+                        title="Download Excel" download title="Download Excel"><i class="fa fa-download"
+                          style="color:white"></i> Download Excel</a> -->
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="no_wrap_th">
+                    <th>ID</th>
+                    <th>Profile</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                    <th>Country</th>
+                    <th>App Language</th>
+                    <th>Speak Language</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th class="action_td_btn3">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor='let x of userArr | paginate: { itemsPerPage: limit, currentPage: pageNumber , totalItems: total };let i=index'>
+                    <td>{{(i+1) + srNumber }}</td>
+                    <td><img class="img-circle" alt="Image" *ngIf="x?.profilePic!=''" height="50" width="50"
+                        style="border-radius:50%" src="{{x?.profilePic}}">
+                      <img class="img-circle" alt="Image" *ngIf="x.profilePic==''" height="50" width="50" title="No image available"
+                        style="border-radius:50%" src="https://www.pngitem.com/pimgs/m/287-2876223_no-profile-picture-available-hd-png-download.png">
+                    </td>
+                    <td style="color:green;cursor: pointer;" [routerLink]="['/admin/userDetails/'+x?._id]"
+                      title="Click to see {{x?.name}} detail"><u>{{x?.name}}</u></td>
+                    <td title="Click to send mail {{x?.email}}" (click)="mail(x?._id)" data-toggle="modal"
+                      data-target="#mail"><u style="color:#FF0000;cursor:pointer">{{x?.email}}</u></td>
+                    <td title="{{x?.countryCode}}{{x?.mobileNumber}}"><b> {{x?.countryCode}}{{x?.mobileNumber}}</b></td>
+                    <td title="{{x?.country}}">{{x?.country}}
+                    </td>
+                    <td title="{{x?.appLanguage}}">{{x?.appLanguage}}</td>
+                    <td title="{{x?.speakLanguage}}">{{x?.speakLanguage}}</td>
+                    <td *ngIf="x?.status=='ACTIVE'" style="color:green" title="Active">Active</td>
+                    <td *ngIf="x?.status=='INACTIVE'" style="color:red" title="Inactive">Inactive</td>
+                    <td *ngIf="x?.status!='ACTIVE' && x?.status!='INACTIVE'"></td>
+                    <td title="{{x?.createdAt | date:'dd/MM/yyyy h:mm a'}}">{{x?.createdAt | date:'dd/MM/yyyy h:mm a'}}
+                    </td>
+                    <td title="{{x?.updatedAt | date:'dd/MM/yyyy h:mm a'}}">{{x?.updatedAt | date:'dd/MM/yyyy h:mm a'}}
+                    </td>
+                    <td class="action_td_btn3">
+                      <a class="btn btn-primary1 mr-2" [routerLink]="['/admin/userDetails/'+x?._id]" title="View"><i
+                          class="fa fa-eye" style="color:white"> View</i></a>
+                      <a class="btn btn-danger1 mr-2" (click)="delete(x)" data-toggle="modal" data-target="#delete"><i
+                          class="fa fa-trash" style="color:white" title="Delete"> Delete</i></a>
+                      <a class="btn btn-warning mr-2" style="color:white" (click)="openModal('block',x?._id)"
+                        *ngIf="x?.status=='ACTIVE'" data-target="modal" title="Inactive"><i class="fa fa-ban"
+                          style="color:white">
+                          Inactive</i></a>
+                      <a class="btn btn-warning mr-2"
+                        style="color:white;background: green;min-width: 77px;border-color:green"
+                        (click)="openModal('unblock',x?._id)" *ngIf="x?.status=='INACTIVE'" data-target="modal"
+                        title="Active"><i class="fa fa-check" style="color:white"> Active</i></a>
+                      <a class="btn btn-primary1 mr-2" (click)="edit_user_modal(x)" data-toggle="modal"
+                        data-target="#edit_user_modal" title="Update"><i class="fa fa-edit" style="color:white">
+                          Update</i></a>
+                      <a class="btn btn-primary1 mr-2" (click)="sendNotification(x?._id)" data-toggle="modal"
+                        data-target="#sendNotification" title="Send Notification"><i class="fa fa-bell"
+                          style="color:white"> Send
+                          Notification</i></a>
+                    </td>
+                  </tr>
+                  <tr *ngIf="userArr == ''">
+                    <td colspan="9" vertical-align="middle">
+                      <div class="no-record">
+                        <div class="no-recordin">
+                          <H5 style="margin-left: 44%;">No record found</H5>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="userArr != ''" class="pull-right mt-4">
+              <pagination-controls (pageChange)="pagination($event)"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal fade global-modal reset-modal" id="delete">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-trash fa-3x" style="color:#FA7C7C" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure want to delete this record?</p>
+                <div>
+                  <button type="submit" class="btn btn-success1 mr-3" data-dismiss="modal"
+                    (click)="deleteApi()">Yes</button>
+                  <button type="button" class="btn btn-danger1" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="modal fade global-modal reset-modal" id="block">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-ban fa-3x" style="color:#FA7C7C" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to inactive this user?</p>
+                <div>
+                  <button type="submit" class="btn btn-success1 mr-3" (click)="blockApi('INACTIVE','block')">Yes</button>
+                  <button type="button" class="btn btn-danger1" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="modal fade global-modal reset-modal" id="unblock">
+  <div class="modal-dialog max-WT-500">
+    <form class="change_password">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <div class="modal-body">
+            <div class="text-center modal_flax_height d-flex align-items-center justify-content-center">
+              <div class="w-100">
+                <i class="fa fa-check fa-3x" style="color:#74c365" aria-hidden="true"></i>
+                <br><br>
+                <p>Are you sure you want to active this user?</p>
+                <div>
+                  <button type="submit" class="btn btn-success1 mr-3" (click)="blockApi('ACTIVE','unblock')">Yes</button>
+                  <button type="button" class="btn btn-danger1" data-dismiss="modal">No</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal global-modal reset-modal" id="edit_user_modal">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="editUserForm" #fg="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Edit {{name}} Details</h5>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="control-labe">Name</label>
+                    <input class="form-control" formControlName="name" autocomplete="false" type="text">
+                  </div>
+                  <div class="form-group">
+                    <label class="control-labe">Email</label>
+                    <input class="form-control" formControlName="email" autocomplete="false" type="email">
+
+                  </div>
+                  <div class="form-group">
+                    <label class="control-labe">App Language</label>
+                    <select class="form-control" style="min-width: 160px;" formControlName="appLanguage">
+                      <option style="display:none">Select app language</option>
+                      <option *ngFor="let y of dropDownData1">
+                        {{y}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-labe">Country</label>
+                    <select class="form-control" style="min-width: 160px;" formControlName="country">
+                      <option style="display:none">Select country</option>
+                      <option *ngFor="let z of dropDownData3">
+                        {{z}}
+                      </option>
+                    </select>
+                  </div>
+                  <!-- <div class="form-group">
+                    <label class="control-labe">Speak Language</label>
+                    <select class="form-control" style="min-width: 160px;" formControlName="speakLanguage">
+                      <option style="display:none">Select speak language</option>
+                      <option *ngFor="let z of dropDownData2">
+                        {{z}}
+                      </option>
+                    </select>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" (click)="editUser1(editUserForm.value)"
+                class="btn btn-gray btn-large radius0 btn-block">Update</button>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal global-modal reset-modal" id="addUser">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="addUserForm" #fg="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Add User</h5>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="mt-2">Name</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="text" title="Enter name" class="form-control" formControlName="name"
+                    placeholder="Enter name" minlength="2">
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('name').hasError('required') && (formvalidation.submitted || addUserForm.get('name').dirty)">
+                    *Name is required
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('name').hasError('minlength') && (addUserForm.get('name').dirty || f.submitted)">
+                    *Minimum length should be 2.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="mt-2">Email</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="email" title="Enter email" class="form-control" formControlName="email"
+                    placeholder="Enter email" maxlength="256">
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('email').hasError('required') && (formvalidation.submitted || addUserForm.get('email').dirty)">
+                    *Email is required
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('email').hasError('pattern') && !(addUserForm.get('email').hasError('maxlength')) && (addUserForm.get('email').dirty || f.submitted)">
+                    Please enter valid email id.
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('email').hasError('maxlength') && (addUserForm.get('email').dirty || f.submitted)">
+                    Email address maximum length should be 254 character.
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="mt-2">Mobile Number</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <select class="form-control" style="min-width: 120px;" formControlName="countryCode">
+                    <option value="">Code</option>
+                    <option *ngFor="let y of dropDownData6" value="{{y.dial_code}}">
+                      {{y.name}}({{y.dial_code}})
+                    </option>
+                  </select>
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('countryCode').hasError('required') && (formvalidation.submitted || addUserForm.get('countryCode').dirty)">
+                    *Country code is required
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <input type="text" title="Enter mobile number" class="form-control" formControlName="mobileNumber"
+                    placeholder="Enter mobile number" maxlength="10" minlength="10">
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('mobileNumber').hasError('required') && (formvalidation.submitted || addUserForm.get('mobileNumber').dirty)">
+                    *Mobile number is required
+                  </div>
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('mobileNumber').hasError('pattern') && !(addUserForm.get('mobileNumber').hasError('maxlength')) && (addUserForm.get('mobileNumber').dirty || f.submitted)">
+                    Please enter valid mobile number.
+                  </div>
+                </div>
+              </div>
+              
+              
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="mt-2">Country</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <select class="form-control" style="min-width: 160px;" formControlName="country">
+                    <option value="">Select country</option>
+                    <option *ngFor="let y of dropDownData3">
+                      {{y}}
+                    </option>
+                  </select>
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('country').hasError('required') && (formvalidation.submitted || addUserForm.get('country').dirty)">
+                    *Country is required
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="mt-2">App Language</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <select class="form-control" style="min-width: 160px;" formControlName="appLanguage">
+                    <option value="">Select app language</option>
+                    <option *ngFor="let y of dropDownData1">
+                      {{y}}
+                    </option>
+                  </select>
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('appLanguage').hasError('required') && (formvalidation.submitted || addUserForm.get('appLanguage').dirty)">
+                    *App Language is required
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <h6 class="mt-2">Speak Language</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <select class="form-control" style="min-width: 160px;" formControlName="speakLanguage">
+                    <option value="">Select speak language</option>
+                    <option *ngFor="let z of dropDownData2">
+                      {{z}}
+                    </option>
+                  </select>
+                  <div class="text-danger"
+                    *ngIf="addUserForm.get('speakLanguage').hasError('required') && (formvalidation.submitted || addUserForm.get('speakLanguage').dirty)">
+                    *Speak Language is required
+                  </div>
+                </div>
+              </div> -->
+              <div class="row">
+                <div class="col-md-12">
+                  <h6 class="mt-2">Profile Picture</h6>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <input type="file" #fileUploader accept="image/jpg,image/png, image/jpeg"
+                    (change)="selectImages($event)">
+                </div>
+                <div class="col-md-6">
+                  <img src="{{activeImage}}" *ngIf="activeImage" style="height:150px;width:150px">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div *ngIf="flag==1" class="text-danger">
+                    *Please select image.
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" [disabled]="buttonDisable==1" (click)="addUser1()"
+                    class="btn btn-gray btn-large radius0 btn-block">Add</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="cancelModal()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal global-modal reset-modal" id="sendNotification">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="sendNotificationForm" #g="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Send Notification</h5>
+          <i class="fa fa-bell faa-ring animated fa-2x" style="color:red" aria-hidden="true"></i>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Title</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="text" title="Enter title" class="form-control" formControlName="title"
+                    placeholder="Enter title">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Message</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <textarea type="text" title="Enter message" class="form-control" formControlName="message" rows="5"
+                    placeholder="Enter message"></textarea>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" (click)="sendNotification1(sendNotificationForm.value)"
+                    class="btn btn-gray btn-large radius0 btn-block">Send</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal global-modal reset-modal" id="sendNotificationToAll">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="sendNotificationToAllForm" #g="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Send Notification</h5>
+          <i class="fa fa-bell faa-ring animated fa-2x" style="color:red" aria-hidden="true"></i>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Title</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="text" title="Enter title" class="form-control" formControlName="title"
+                    placeholder="Enter title">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Message</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <textarea type="text" title="Enter message" class="form-control" formControlName="message" rows="5"
+                    placeholder="Enter message"></textarea>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" (click)="sendNotificationToAll1(sendNotificationToAllForm.value)"
+                    class="btn btn-gray btn-large radius0 btn-block">Send</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="modal global-modal reset-modal" id="mail">
+  <div class="modal-dialog  max-WT-450">
+    <form class="change_password" [formGroup]="mailForm" #g="ngForm">
+      <div class="modal-content" style="min-width:600px">
+        <div class="modal-header d-block text-center">
+          <h5 class="modal-title d-inline-block">Send Mail</h5>
+          <i class="fa fa-envelope faa-shake animated fa-2x" style="color:green" aria-hidden="true"></i>
+          <button type="button" class="close" (click)="cancelModal()" data-dismiss="modal" aria-label="Close"
+            style="font-size: 1.3125rem;text-shadow: 0 1px 0 #fff;color:black">
+            <span aria-hidden="true"
+              style="color: #000;font-size: 1.3125rem;font-weight: 700;line-height: 1;text-shadow: 0 1px 0 #FFF;float:right">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="w-100 form-group mr-4 ml-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="mt-2">Message</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <textarea type="text" title="Enter message" class="form-control" formControlName="message" rows="5"
+                    placeholder="Enter message"></textarea>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" (click)="sendMail(mailForm.value)"
+                    class="btn btn-gray btn-large radius0 btn-block">Send</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-red btn-large radius0 btn-block" (click)="reset()"
+                    data-dismiss="modal">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

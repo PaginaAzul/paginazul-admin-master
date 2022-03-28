@@ -1,0 +1,181 @@
+<main class="middle-content">
+    <div class="page_title_block">
+        <h1 class="page_title" title="Dashboard">Dashboard</h1>
+    </div>
+  
+
+    <div class="content-section dashboard-block">
+        
+        <ul class="dash_list d-flex w-100 flex-wrap text-center justify-content-between">
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/userTypeManagement']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-users faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Users</h2>
+                    <h4 id="number1">{{data?.User}}</h4>
+                </div>
+            </li>
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/postManagement/all']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-box faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Orders</h2>
+                    <h4 id="number2">{{data?.Post}}</h4>
+                </div>
+            </li>
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/userManagement']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-users faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Normal Users</h2>
+                    <h4 id="number3">{{data?.NormalUser}}</h4>
+                </div>
+            </li>
+            
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/professionalworkerManagement/all']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-users faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Professional Workers</h2>
+                    <h4 id="number5">{{data?.ProfessionalUser}}</h4>
+                </div>
+            </li>
+
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/professionalworkerManagement/request']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-users faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Professional Workers Request</h2>
+                    <h4 id="number6">{{data?.RequestProfessional}}</h4>
+                </div>
+            </li>
+
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/postManagement/all']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-box faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Orders</h2>
+                    <h4 id="number8">{{data?.PendingOrder}}</h4>
+                </div>
+            </li>
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/postManagement/pending']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-box faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Pending Orders</h2>
+                    <h4 id="number9">{{data?.PendingOrder}}</h4>
+                </div>
+            </li>
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/postManagement/active']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-box faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Active Orders</h2>
+                    <h4 id="number10">{{data?.ActiveOrder}}</h4>
+                </div>
+            </li>
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/postManagement/past']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-box faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Past Orders</h2>
+                    <h4 id="number11">{{data?.PastOrders}}</h4>
+                </div>
+            </li>
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/store']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-store faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Stores</h2>
+                    <h4 id="number12">{{data?.totalStore}}</h4>
+                </div>
+            </li>
+
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/store/request']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-store faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Stores Request</h2>
+                    <h4 id="number17">{{data?.totalStoreRequest}}</h4>
+                </div>
+            </li>
+
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/restaurant']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-store faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Restaurants</h2>
+                    <h4 id="number13">{{data?.totalRestaurant}}</h4>
+                </div>
+            </li>
+
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/restaurant/request']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fas fa-store faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Restaurants Request</h2>
+                    <h4 id="number18">{{data?.totalRestaurantRequest}}</h4>
+                </div>
+            </li>
+
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/driver/request']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fa fa-car faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Drivers Request</h2>
+                    <h4 id="number15">{{data?.totalDriverRequest}}</h4>
+                </div>
+            </li>
+
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/driver/all']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fa fa-car faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Drivers</h2>
+                    <h4 id="number14">{{data?.totalDriver}}</h4>
+                </div>
+            </li>
+
+            <li class="d-inline-flex align-items-center justify-content-center showCursor"
+                [routerLink]="['/admin/payment/']">
+                <div class="w-70">
+                    <div class="dash_icn">
+                        <i class="fa fa-money faa-pulse animated fa-3x"></i>
+                    </div>
+                    <h2>Total Earning</h2>
+                    <h4 id="number16">{{data?.paymentData}}</h4>
+                </div>
+            </li>
+        </ul>
+    </div>
+</main>
